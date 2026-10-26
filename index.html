@@ -83,12 +83,12 @@
         
         <!-- 1. GALLERY VIEW -->
         <section id="gallery-view" class="w-full flex flex-col items-center justify-center cursor-pointer select-none">
-            <!-- Dynamic frame supporting both Portrait and Landscape orientations -->
-            <div id="image-frame" class="relative max-w-[320px] sm:max-w-[480px] max-h-[70vh] flex items-center justify-center overflow-hidden transition-all duration-500">
+            <!-- Dynamic frame: fixed standard size for portrait, expands nicely to fit full width for landscape -->
+            <div id="image-frame" class="relative w-[210px] sm:w-[250px] aspect-[3/4] flex items-center justify-center overflow-hidden bg-neutral-50 transition-all duration-300">
                 <img id="slideshow-img" 
                      src="" 
                      alt="Mik Zai Portfolio" 
-                     class="max-w-full max-h-[70vh] w-auto h-auto object-contain fade-img opacity-0" />
+                     class="w-full h-full object-cover fade-img opacity-0" />
             </div>
         </section>
 
@@ -154,35 +154,35 @@
 
     <!-- SLIDESHOW & NAVIGATION LOGIC -->
     <script>
-        // Updated portrait photo collection (reordered & responsive layout ready)
+        // Ordered photo collection with automatic aspect-ratio switcher
         const portfolioImages = [
-            'https://i.ibb.co/HL8KQ5Px/367-FDAEA-4812-42-A1-A8-A7-932-F439-DCAFE.jpg',
-            'https://i.ibb.co/nNwVpcnv/IMG-2062.jpg', // ย้ายขึ้นมาต่อจากรูปที่ 1
-            'https://i.ibb.co/vxz4mZFc/IMG-3479.jpg', // ย้ายขึ้นมาต่อจากรูปที่ 1
             'https://i.ibb.co/vx7F3nNS/B67-A0830-C7-A3-4685-B065-F328488-ED3-EC.jpg',
-            'https://i.ibb.co/XZLB79xn/IMG-1977.jpg',
+            'https://i.ibb.co/HL8KQ5Px/367-FDAEA-4812-42-A1-A8-A7-932-F439-DCAFE.jpg',
+            'https://i.ibb.co/vxz4mZFc/IMG-3479.jpg',
             'https://i.ibb.co/k6VWKFmt/IMG-1978.jpg',
             'https://i.ibb.co/fdpHjsXm/IMG-1980.jpg',
             'https://i.ibb.co/tMFJKsh2/IMG-1982.jpg',
+            'https://i.ibb.co/XZLB79xn/IMG-1977.jpg',
+            'https://i.ibb.co/7N60QYsf/IMG-1989.jpg',
             'https://i.ibb.co/b5MFq6Rb/IMG-1983.jpg',
             'https://i.ibb.co/vvCtz7vV/IMG-1984.jpg',
-            'https://i.ibb.co/wFvBNvyR/IMG-1985.jpg',
-            'https://i.ibb.co/7N60QYsf/IMG-1989.jpg',
             'https://i.ibb.co/ZztrbyNf/IMG-2016.jpg',
-            'https://i.ibb.co/YH7DJSC/IMG-2017.jpg',
+            'https://i.ibb.co/wFvBNvyR/IMG-1985.jpg',
             'https://i.ibb.co/DPyCKWMy/IMG-2018.jpg',
-            'https://i.ibb.co/vxFd22J4/IMG-2021.jpg',
+            'https://i.ibb.co/YH7DJSC/IMG-2017.jpg',
             'https://i.ibb.co/xq5rN8b5/IMG-2022.jpg',
+            'https://i.ibb.co/vxFd22J4/IMG-2021.jpg',
             'https://i.ibb.co/HpMNRXV2/IMG-2023.jpg',
             'https://i.ibb.co/LXx8Yb7D/IMG-2027.jpg',
             'https://i.ibb.co/q3k8RJcf/IMG-2034.jpg',
             'https://i.ibb.co/TBxwW0g0/IMG-2035.jpg',
             'https://i.ibb.co/yFm3JzBL/IMG-2037.jpg',
-            'https://i.ibb.co/dwsjFnTy/IMG-2051.jpg',
             'https://i.ibb.co/RG8vm5Lq/IMG-2052.jpg',
+            'https://i.ibb.co/dwsjFnTy/IMG-2051.jpg',
             'https://i.ibb.co/wFdqxVV4/IMG-2056.jpg',
             'https://i.ibb.co/MDL24YTv/IMG-2057.jpg',
-            'https://i.ibb.co/dJfbwS82/IMG-2059.jpg'
+            'https://i.ibb.co/dJfbwS82/IMG-2059.jpg',
+            'https://i.ibb.co/nNwVpcnv/IMG-2062.jpg'
         ];
 
         let currentIndex = 0;
@@ -192,6 +192,7 @@
 
         // Elements
         const imgElement = document.getElementById('slideshow-img');
+        const imageFrame = document.getElementById('image-frame');
         const galleryView = document.getElementById('gallery-view');
         const aboutView = document.getElementById('about-view');
         const aboutBtn = document.getElementById('about-btn');
@@ -206,6 +207,23 @@
             });
         }
 
+        // Adjust frame styling dynamically based on image dimensions
+        function updateImageFrame(img) {
+            const width = img.naturalWidth;
+            const height = img.naturalHeight;
+            const isLandscape = width > height;
+
+            if (isLandscape) {
+                // Landscape styling: full width container, containment view
+                imageFrame.className = "relative w-[320px] sm:w-[420px] aspect-[4/3] flex items-center justify-center overflow-hidden bg-neutral-50 transition-all duration-300";
+                imgElement.className = "w-full h-full object-contain fade-img opacity-0";
+            } else {
+                // Portrait styling: standard size
+                imageFrame.className = "relative w-[210px] sm:w-[250px] aspect-[3/4] flex items-center justify-center overflow-hidden bg-neutral-50 transition-all duration-300";
+                imgElement.className = "w-full h-full object-cover fade-img opacity-0";
+            }
+        }
+
         // Change slide with fade effect
         function changeSlide(nextIndex) {
             if (isChanging) return;
@@ -216,20 +234,27 @@
 
             setTimeout(() => {
                 currentIndex = (nextIndex !== undefined) ? nextIndex : (currentIndex + 1) % portfolioImages.length;
-                imgElement.src = portfolioImages[currentIndex];
+                
+                const tempImg = new Image();
+                tempImg.src = portfolioImages[currentIndex];
+                tempImg.onload = () => {
+                    imgElement.src = tempImg.src;
+                    updateImageFrame(tempImg);
 
-                imgElement.onload = () => {
                     imgElement.classList.remove('opacity-0');
                     imgElement.classList.add('opacity-100');
                     isChanging = false;
                 };
 
-                // Fallback in case onload fires quickly
+                // Fallback
                 setTimeout(() => {
-                    imgElement.classList.remove('opacity-0');
-                    imgElement.classList.add('opacity-100');
-                    isChanging = false;
-                }, 100);
+                    if (isChanging) {
+                        imgElement.src = portfolioImages[currentIndex];
+                        imgElement.classList.remove('opacity-0');
+                        imgElement.classList.add('opacity-100');
+                        isChanging = false;
+                    }
+                }, 300);
 
             }, 350);
         }
@@ -286,10 +311,16 @@
         // Initialization
         window.addEventListener('DOMContentLoaded', () => {
             preloadImages();
-            imgElement.src = portfolioImages[0];
-            imgElement.classList.remove('opacity-0');
-            imgElement.classList.add('opacity-100');
-            startTimer();
+            
+            const initialImg = new Image();
+            initialImg.src = portfolioImages[0];
+            initialImg.onload = () => {
+                imgElement.src = initialImg.src;
+                updateImageFrame(initialImg);
+                imgElement.classList.remove('opacity-0');
+                imgElement.classList.add('opacity-100');
+                startTimer();
+            };
         });
     </script>
 </body>
