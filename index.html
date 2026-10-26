@@ -41,8 +41,8 @@
         /* ASCII Rose exact alignment and opacity */
         .rose-ascii {
             font-family: 'Space Mono', 'Courier New', monospace;
-            font-size: 11px;
-            line-height: 12px;
+            font-size: 7px;
+            line-height: 7.5px;
             letter-spacing: -0.5px;
             white-space: pre;
             color: #000000;
@@ -79,9 +79,9 @@
     </header>
 
     <!-- MAIN CONTAINER -->
-<main class="w-full min-h-screen flex items-center justify-center px-5 sm:px-10 pt-16 pb-12">
+    <main class="w-full min-h-screen flex items-center justify-center px-5 sm:px-10 pt-16 pb-12">
         
-        <!-- 1. GALLERY VIEW (First Screenshot) -->
+        <!-- 1. GALLERY VIEW -->
         <section id="gallery-view" class="w-full flex flex-col items-center justify-center cursor-pointer select-none">
             <!-- Fine-tuned small portrait frame exactly as requested -->
             <div class="relative w-[210px] sm:w-[250px] aspect-[3/4] overflow-hidden bg-neutral-50">
@@ -92,8 +92,8 @@
             </div>
         </section>
 
-        <!-- 2. ABOUT VIEW (Third Screenshot) -->
-<section id="about-view" class="hidden w-full max-w-2xl mx-auto -mt-30 sm:-mt-42 pt-0">
+        <!-- 2. ABOUT VIEW -->
+        <section id="about-view" class="hidden w-full max-w-2xl mx-auto -mt-30 sm:-mt-42 pt-0">
 
             <!-- 2-column horizontal flex/grid in same row -->
             <div class="grid grid-cols-12 gap-4 sm:gap-8 items-start relative">
@@ -116,7 +116,7 @@
                         </a>
                     </div>
 
-                    <!-- ASCII Rose Overlay matching image_3.png -->
+                    <!-- ASCII Rose Overlay -->
                     <div class="rose-ascii absolute top-0 right-0 z-0">
  ⠀⠀⠀⠀⠀ ⠀⠀⠀⣤⢔⣒⠂⣀⣀⣤⣄⣀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⣴⣿⠋⢠⣟⡼⣷⠼⣆⣼⢇⣿⣄⠱⣄
@@ -154,16 +154,18 @@
 
     <!-- SLIDESHOW & NAVIGATION LOGIC -->
     <script>
-        // High quality editorial portrait photo collection
-        const portfolioImages = [<a href="https://ibb.co/F4k1fTxP"><img src="https://i.ibb.co/TMDGn3vC/IMG-1978.jpg" alt="IMG-1978" border="0"></a>
-<a href="https://ibb.co/Xfzy7Hst"><img src="https://i.ibb.co/JWzxvZ7H/IMG-1977.jpg" alt="IMG-1977" border="0"></a>
-<a href="https://ibb.co/NgNcCnxG"><img src="https://i.ibb.co/bjvcmR1G/IMG-1980.jpg" alt="IMG-1980" border="0"></a>
-<a href="https://ibb.co/bgKFqQS6"><img src="https://i.ibb.co/JRsq0mfc/IMG-1981.jpg" alt="IMG-1981" border="0"></a>
-<a href="https://ibb.co/NnKscLCw"><img src="https://i.ibb.co/h1Vy3K9p/IMG-1982.jpg" alt="IMG-1982" border="0"></a>
-<a href="https://ibb.co/Y4GhtX5x"><img src="https://i.ibb.co/5XVL5kQP/IMG-1983.jpg" alt="IMG-1983" border="0"></a>
-<a href="https://ibb.co/fYp6cxzX"><img src="https://i.ibb.co/MDVwXCxg/IMG-1979.jpg" alt="IMG-1979" border="0"></a>
-<a href="https://ibb.co/9mkpv8sN"><img src="https://i.ibb.co/0pRnXDhc/IMG-1984.jpg" alt="IMG-1984" border="0"></a>
-<a href="https://ibb.co/twScCYH6"><img src="https://i.ibb.co/vCbmzLcW/IMG-1985.jpg" alt="IMG-1985" border="0"></a>];
+        // Your custom portrait photo collection from ImgBB
+        const portfolioImages = [
+            'https://i.ibb.co/TMDGn3vC/IMG-1978.jpg',
+            'https://i.ibb.co/JWzxvZ7H/IMG-1977.jpg',
+            'https://i.ibb.co/bjvcmR1G/IMG-1980.jpg',
+            'https://i.ibb.co/JRsq0mfc/IMG-1981.jpg',
+            'https://i.ibb.co/h1Vy3K9p/IMG-1982.jpg',
+            'https://i.ibb.co/5XVL5kQP/IMG-1983.jpg',
+            'https://i.ibb.co/MDVwXCxg/IMG-1979.jpg',
+            'https://i.ibb.co/0pRnXDhc/IMG-1984.jpg',
+            'https://i.ibb.co/vCbmzLcW/IMG-1985.jpg'
+        ];
 
         let currentIndex = 0;
         let isChanging = false;
