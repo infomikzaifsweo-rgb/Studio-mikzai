@@ -1,379 +1,273 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHIARA CROSERIO</title>
+    <!-- Google Fonts: Inter with light weights -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+                        mono: ['"Space Mono"', 'Consolas', 'Courier New', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base typography for ultra-thin minimalist look */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 300;
+            color: #1a1a1a;
+            background-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-  <title>Mik Zai — Photographer</title>
-  <meta name="description" content="Mik Zai is an independent photographer based in Thailand.">
+        /* Smooth crossfade for slideshow images */
+        .fade-img {
+            transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
 
-  <style>
-    :root {
-      --page-bg: #ffffff;
-      --text: #202020;
-      --page-padding: 4.5%;
-    }
+        /* ASCII Rose exact alignment and opacity */
+        .rose-ascii {
+            font-family: 'Space Mono', 'Courier New', monospace;
+            font-size: 7px;
+            line-height: 7.5px;
+            letter-spacing: -0.5px;
+            white-space: pre;
+            color: #b0b0b0;
+            user-select: none;
+            pointer-events: none;
+            opacity: 0.65;
+        }
 
-    * {
-      box-sizing: border-box;
-    }
+        @media (min-width: 640px) {
+            .rose-ascii {
+                font-size: 8px;
+                line-height: 8.5px;
+            }
+        }
 
-    html,
-    body {
-      margin: 0;
-      min-height: 100%;
-      background: var(--page-bg);
-      color: var(--text);
-    }
-
-    body {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-weight: 300;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    /* HEADER */
-
-    .header {
-      position: fixed;
-      z-index: 20;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 25px var(--page-padding);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.97);
-    }
-
-    .header a {
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.35px;
-      text-transform: uppercase;
-    }
-
-    .header a:hover {
-      opacity: 0.55;
-    }
-
-    /* HOME */
-
-    #home {
-      min-height: 100svh;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 85px 20px 45px;
-    }
-
-    .gallery {
-      position: relative;
-      width: min(360px, 48vw);
-      height: min(460px, 62vh);
-      min-height: 260px;
-      overflow: hidden;
-      background: #f5f5f5;
-      cursor: pointer;
-    }
-
-    .gallery img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1.1s ease;
-    }
-
-    .gallery img.active {
-      opacity: 1;
-    }
-
-    /* ABOUT */
-
-    #about {
-      display: none;
-      min-height: 100svh;
-      padding: 110px var(--page-padding) 60px;
-      align-items: center;
-    }
-
-    .about-grid {
-      width: 100%;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 0.75fr);
-      column-gap: 12%;
-      align-items: start;
-    }
-
-    /* INTRODUCTION */
-
-    .bio {
-      max-width: 440px;
-      margin: 0;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: clamp(24px, 2.6vw, 30px);
-      font-weight: 300;
-      line-height: 1.48;
-      letter-spacing: -0.75px;
-      color: #222222;
-      text-wrap: pretty;
-    }
-
-    /* CONTACT */
-
-    .contact {
-      margin: 5px 0 0;
-      padding: 0;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 12px;
-      font-weight: 300;
-      line-height: 1.9;
-      letter-spacing: 0.1px;
-      color: #353535;
-    }
-
-    .contact-label {
-      margin: 0 0 9px;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-    }
-
-    .contact p {
-      margin-top: 0;
-    }
-
-    .contact a {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 300;
-      line-height: 1.9;
-      text-decoration: underline;
-      text-decoration-thickness: 0.5px;
-      text-underline-offset: 3px;
-    }
-
-    .contact a:hover {
-      opacity: 0.55;
-    }
-
-    .social-link {
-      margin-top: 3px;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 600px) {
-      :root {
-        --page-padding: 6%;
-      }
-
-      .header {
-        padding-top: 24px;
-        padding-bottom: 24px;
-      }
-
-      .gallery {
-        width: min(310px, 72vw);
-        height: min(420px, 55vh);
-        min-height: 250px;
-      }
-
-      #about {
-        padding-top: 105px;
-        padding-bottom: 50px;
-      }
-
-      .about-grid {
-        grid-template-columns: minmax(0, 1fr);
-        row-gap: 34px;
-      }
-
-      .bio {
-  font-size: clamp(19px, 2vw, 23px);
-  line-height: 1.55;
-  font-weight: 300;
-  letter-spacing: -0.4px;
-      }
-
-      .contact {
-  font-size: 11px;
-  line-height: 1.9;
-}
-
-.contact-label {
-  font-size: 9px;
-}
-
-.contact a {
-  font-size: 11px;
-}
-
-    @media (prefers-reduced-motion: reduce) {
-      .gallery img {
-        transition: none;
-      }
-    }
-  </style>
+        /* Minimal underline style for active link/email */
+        .underline-active {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1px;
+        }
+    </style>
 </head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-neutral-100">
 
-<body>
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 w-full px-6 py-6 md:px-10 md:py-8 flex justify-between items-center z-50 text-[11px] sm:text-[12px] tracking-[0.05em] uppercase font-light">
+        <a href="#" id="brand-logo" class="hover:opacity-60 transition-opacity">
+            CHIARA CROSERIO
+        </a>
+        <button id="about-btn" class="hover:opacity-60 transition-opacity focus:outline-none">
+            <span id="about-text" class="pb-0.5">ABOUT</span>
+        </button>
+    </header>
 
-  <header class="header">
-    <a href="#home" id="homeLink">Mik Zai</a>
-    <a href="#about" id="aboutLink">About</a>
-  </header>
+    <!-- MAIN CONTAINER -->
+    <main class="w-full min-h-screen flex items-center justify-center px-5 sm:px-10 pt-16 pb-12">
+        
+        <!-- 1. GALLERY VIEW (First Screenshot) -->
+        <section id="gallery-view" class="w-full flex flex-col items-center justify-center cursor-pointer select-none">
+            <!-- Fine-tuned small portrait frame exactly as requested -->
+            <div class="relative w-[210px] sm:w-[250px] aspect-[3/4] overflow-hidden bg-neutral-50">
+                <img id="slideshow-img" 
+                     src="" 
+                     alt="Chiara Croserio Portfolio" 
+                     class="w-full h-full object-cover fade-img opacity-0" />
+            </div>
+        </section>
 
-  <main>
+        <!-- 2. ABOUT VIEW (Third Screenshot) -->
+        <section id="about-view" class="hidden w-full max-w-2xl mx-auto my-auto pt-4">
+            <!-- 2-column horizontal flex/grid in same row -->
+            <div class="grid grid-cols-12 gap-4 sm:gap-8 items-start relative">
+                
+                <!-- Left Column: Bio Text -->
+                <div class="col-span-6 sm:col-span-7 text-[12px] sm:text-[13.5px] leading-[1.55] sm:leading-[1.65] font-light text-[#1a1a1a] tracking-[0.01em]">
+                    <p>
+                        Chiara Croserio is an Indonesian-Italian photographer based in Bali. Self-taught, her practice is driven by an interest in identity and its expression. She works closely with the people around her, building slow and collaborative relationships that allow for intimacy and trust to shape the image.
+                    </p>
+                </div>
 
-    <!-- HOME PAGE -->
+                <!-- Right Column: Contact & ASCII Rose -->
+                <div class="col-span-6 sm:col-span-5 relative pl-2 sm:pl-0">
+                    
+                    <!-- Contact Info -->
+                    <div class="text-[12px] sm:text-[13.5px] leading-[1.55] sm:leading-[1.65] font-light text-[#1a1a1a] z-10 relative">
+                        <span>Contact:</span><br/>
+                        <a href="mailto:chiara.croserio@gmail.com" class="underline-active break-all hover:opacity-60 transition-opacity">
+                            chiara.croserio@gmail.com
+                        </a>
+                    </div>
 
-    <section id="home" aria-label="Photography portfolio">
-      <div
-        class="gallery"
-        id="gallery"
-        role="button"
-        tabindex="0"
-        aria-label="Show next photograph"
-      >
-        <img
-          class="active"
-          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85"
-          alt="Portrait photograph"
-        >
+                    <!-- ASCII Rose Overlay matching image_3.png -->
+                    <div class="rose-ascii absolute top-0 right-0 z-0">
+ ⠀⠀⠀⠀⠀ ⠀⠀⠀⣤⢔⣒⠂⣀⣀⣤⣄⣀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣴⣿⠋⢠⣟⡼⣷⠼⣆⣼⢇⣿⣄⠱⣄
+⠀⠀⠀⠀⠀⠀⠀⠹⣿⡀⣆⠙⠢⠐⠉⠉⣴⣾⣽⢟⡰⠃
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣦⠀⠤⢴⣿⠿⢋⣴⡏⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡙⠻⣿⣶⣦⣭⣉⠁⣿⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷⠀⠈⠉⠉⠉⠉⠇⡟⠀⠀⠨
+⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⣘⣦⣀⠀⠀⣀⡴⠊⠀⠀⢀⠆
+⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⢻⣿⣿⣿⣿⠻⣧⡄⠀⢐⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠫⣿⠉⠻⣇⠘⠓⠂⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⢶⣾⣿⣿⣿⣿⣿⣶⣄⠀⠀⠀⣿⠀⠀⠀⠠⠀⠀⠀⠀
+⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣧⠀⢸⣿⠀⠀⠠⠠⠀⠀⠀⠀
+⠀⠀⠀⠈⠙⠻⢿⣿⣿⠿⠛⣄⢸⡇⠀⠀⠌⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡇⠀⠀⠂⠠⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡁⠀⠈⠀⠠⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⠈⠄⠀⠂⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠁⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣷⠂⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠋⠀⠀⠀⠀⠀⠀⠀⠀    
+                    </div>
 
-        <img
-          src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1000&q=85"
-          alt="Portrait photograph"
-        >
+                </div>
 
-        <img
-          src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1000&q=85"
-          alt="Fashion photograph"
-        >
+            </div>
+        </section>
 
-        <img
-          src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=85"
-          alt="Editorial photograph"
-        >
-      </div>
-    </section>
+    </main>
 
-    <!-- ABOUT PAGE -->
+    <!-- SLIDESHOW & NAVIGATION LOGIC -->
+    <script>
+        // High quality editorial portrait photo collection
+        const portfolioImages = [
+            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80'
+        ];
 
-    <section id="about" aria-label="About Mik Zai">
-      <div class="about-grid">
+        let currentIndex = 0;
+        let isChanging = false;
+        let slideshowTimer = null;
+        let isAboutPage = false;
 
-        <p class="bio">
-          Mik Zai is an independent photographer based in Thailand.
-          His practice is shaped by an interest in people, identity
-          and the subtle atmosphere of everyday life. He works across
-          portraiture, fashion and events, approaching each image
-          from a personal perspective. </p>
-          <!-- Replace with your real email -->
-          <a href="mailto:your@email.com">your@email.com</a>
+        // Elements
+        const imgElement = document.getElementById('slideshow-img');
+        const galleryView = document.getElementById('gallery-view');
+        const aboutView = document.getElementById('about-view');
+        const aboutBtn = document.getElementById('about-btn');
+        const aboutText = document.getElementById('about-text');
+        const brandLogo = document.getElementById('brand-logo');
 
-          <br>
+        // Preload images for seamless image switching
+        function preloadImages() {
+            portfolioImages.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        }
 
-          <!-- Replace with your Instagram profile URL -->
-          <a
-            class="social-link"
-            href="https://www.instagram.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Instagram</a>
-        </div>
+        // Change slide with fade effect
+        function changeSlide(nextIndex) {
+            if (isChanging) return;
+            isChanging = true;
 
-      </div>
-    </section>
+            imgElement.classList.remove('opacity-100');
+            imgElement.classList.add('opacity-0');
 
-  </main>
+            setTimeout(() => {
+                currentIndex = (nextIndex !== undefined) ? nextIndex : (currentIndex + 1) % portfolioImages.length;
+                imgElement.src = portfolioImages[currentIndex];
 
-  <script>
-    const home = document.getElementById("home");
-    const about = document.getElementById("about");
-    const homeLink = document.getElementById("homeLink");
-    const aboutLink = document.getElementById("aboutLink");
-    const gallery = document.getElementById("gallery");
-    const images = Array.from(gallery.querySelectorAll("img"));
+                imgElement.onload = () => {
+                    imgElement.classList.remove('opacity-0');
+                    imgElement.classList.add('opacity-100');
+                    isChanging = false;
+                };
 
-    let currentImage = 0;
-    let slideshowTimer;
+                // Fallback in case onload fires quickly
+                setTimeout(() => {
+                    imgElement.classList.remove('opacity-0');
+                    imgElement.classList.add('opacity-100');
+                    isChanging = false;
+                }, 100);
 
-    function showPage(page) {
-      const showAbout = page === "about";
+            }, 350);
+        }
 
-      home.style.display = showAbout ? "none" : "flex";
-      about.style.display = showAbout ? "flex" : "none";
+        // Timer control
+        function startTimer() {
+            stopTimer();
+            slideshowTimer = setInterval(() => {
+                changeSlide();
+            }, 5000);
+        }
 
-      if (showAbout) {
-        history.replaceState(null, "", "#about");
-      } else {
-        history.replaceState(null, "", location.pathname + location.search);
-      }
+        function stopTimer() {
+            if (slideshowTimer) clearInterval(slideshowTimer);
+        }
 
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
+        // Manual photo click to switch image
+        galleryView.addEventListener('click', () => {
+            changeSlide();
+            startTimer();
+        });
 
-    function nextImage() {
-      images[currentImage].classList.remove("active");
-      currentImage = (currentImage + 1) % images.length;
-      images[currentImage].classList.add("active");
-    }
+        // View toggles
+        function showAbout() {
+            isAboutPage = true;
+            galleryView.classList.add('hidden');
+            aboutView.classList.remove('hidden');
+            aboutText.classList.add('underline-active');
+            stopTimer();
+        }
 
-    homeLink.addEventListener("click", function (event) {
-      event.preventDefault();
-      showPage("home");
-    });
+        function showGallery() {
+            isAboutPage = false;
+            aboutView.classList.add('hidden');
+            galleryView.classList.remove('hidden');
+            aboutText.classList.remove('underline-active');
+            startTimer();
+        }
 
-    aboutLink.addEventListener("click", function (event) {
-      event.preventDefault();
-      showPage("about");
-    });
+        aboutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (isAboutPage) {
+                showGallery();
+            } else {
+                showAbout();
+            }
+        });
 
-    gallery.addEventListener("click", nextImage);
+        brandLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            showGallery();
+        });
 
-    gallery.addEventListener("keydown", function (event) {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        nextImage();
-      }
-    });
-
-    function syncPageWithHash() {
-      if (location.hash === "#about") {
-        home.style.display = "none";
-        about.style.display = "flex";
-      } else {
-        home.style.display = "flex";
-        about.style.display = "none";
-      }
-    }
-
-    window.addEventListener("hashchange", syncPageWithHash);
-
-    syncPageWithHash();
-
-    slideshowTimer = window.setInterval(nextImage, 4000);
-  </script>
-
+        // Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            preloadImages();
+            imgElement.src = portfolioImages[0];
+            imgElement.classList.remove('opacity-0');
+            imgElement.classList.add('opacity-100');
+            startTimer();
+        });
+    </script>
 </body>
 </html>
