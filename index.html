@@ -83,12 +83,12 @@
         
         <!-- 1. GALLERY VIEW -->
         <section id="gallery-view" class="w-full flex flex-col items-center justify-center cursor-pointer select-none">
-            <!-- Fine-tuned small portrait frame exactly as requested -->
-            <div class="relative w-[210px] sm:w-[250px] aspect-[3/4] overflow-hidden bg-neutral-50">
+            <!-- Dynamic frame supporting both Portrait and Landscape orientations -->
+            <div id="image-frame" class="relative max-w-[320px] sm:max-w-[480px] max-h-[70vh] flex items-center justify-center overflow-hidden transition-all duration-500">
                 <img id="slideshow-img" 
                      src="" 
                      alt="Mik Zai Portfolio" 
-                     class="w-full h-full object-cover fade-img opacity-0" />
+                     class="max-w-full max-h-[70vh] w-auto h-auto object-contain fade-img opacity-0" />
             </div>
         </section>
 
@@ -154,9 +154,11 @@
 
     <!-- SLIDESHOW & NAVIGATION LOGIC -->
     <script>
-        // Full portrait photo collection from latest ImgBB links
+        // Updated portrait photo collection (reordered & responsive layout ready)
         const portfolioImages = [
             'https://i.ibb.co/HL8KQ5Px/367-FDAEA-4812-42-A1-A8-A7-932-F439-DCAFE.jpg',
+            'https://i.ibb.co/nNwVpcnv/IMG-2062.jpg', // ย้ายขึ้นมาต่อจากรูปที่ 1
+            'https://i.ibb.co/vxz4mZFc/IMG-3479.jpg', // ย้ายขึ้นมาต่อจากรูปที่ 1
             'https://i.ibb.co/vx7F3nNS/B67-A0830-C7-A3-4685-B065-F328488-ED3-EC.jpg',
             'https://i.ibb.co/XZLB79xn/IMG-1977.jpg',
             'https://i.ibb.co/k6VWKFmt/IMG-1978.jpg',
@@ -180,9 +182,7 @@
             'https://i.ibb.co/RG8vm5Lq/IMG-2052.jpg',
             'https://i.ibb.co/wFdqxVV4/IMG-2056.jpg',
             'https://i.ibb.co/MDL24YTv/IMG-2057.jpg',
-            'https://i.ibb.co/dJfbwS82/IMG-2059.jpg',
-            'https://i.ibb.co/nNwVpcnv/IMG-2062.jpg',
-            'https://i.ibb.co/vxz4mZFc/IMG-3479.jpg'
+            'https://i.ibb.co/dJfbwS82/IMG-2059.jpg'
         ];
 
         let currentIndex = 0;
